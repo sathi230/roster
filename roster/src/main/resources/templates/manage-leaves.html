@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Leave Requests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            width: 90%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th, td {
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007acc;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f8ff;
+        }
+
+        tr:hover {
+            background-color: #e0f0ff;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 4px;
+        }
+
+        button[name="action"][value="approve"] {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button[name="action"][value="approve"]:hover {
+            background-color: #1e7e34;
+        }
+
+        button[name="action"][value="reject"] {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button[name="action"][value="reject"]:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Pending Leave Requests</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="leave : ${pendingLeaves}">
+                <td th:text="${leave.empId}"></td>
+                <td th:text="${leave.fromDate}"></td>
+                <td th:text="${leave.toDate}"></td>
+                <td th:text="${leave.leaveType}"></td>
+                <td th:text="${leave.status}"></td>
+                <td>
+                    <form th:action="@{/leave/updateStatus}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${leave.id}" />
+                        <button name="action" value="approve">Approve</button>
+                        <button name="action" value="reject">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

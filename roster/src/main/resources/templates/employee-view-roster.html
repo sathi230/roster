@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Roster</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        h3 {
+            color: #003366;
+        }
+
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007acc;
+            color: white;
+        }
+
+        .EL { color: orange; font-weight: bold; }
+        .SL { color: red; font-weight: bold; }
+        .LOP { color: purple; font-weight: bold; }
+        .ATT { color: brown; font-weight: bold; }
+        .GH { color: teal; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- Greeting with empId and Name from session -->
+    <div class="greeting">
+        Hello, <span th:text="${session.empName}">Employee</span> (ID: <span th:text="${session.empId}">E001</span>)
+    </div>
+
+    <h3>Your Monthly Roster</h3>
+    <table>
+        <tr><th>Date</th><th>Shift</th><th>Status</th></tr>
+        <tr th:each="r : ${rosters}">
+            <td th:text="${r.date}"></td>
+            <td th:text="${r.shift}"></td>
+            <td th:text="${r.status}" th:class="${r.status}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

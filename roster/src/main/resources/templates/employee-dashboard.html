@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #eef2f7;
+        }
+
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 16px;
+            margin-right: auto;
+            padding-left: 20px;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .profile-icon {
+            font-size: 24px;
+            cursor: pointer;
+            background-color: white;
+            color: #003366;
+            padding: 6px 10px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            display: inline-block;
+        }
+
+        .profile-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1000;
+            border-radius: 6px;
+            min-width: 150px;
+        }
+
+        .profile-menu a {
+            color: #007acc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .profile-menu a:hover {
+            text-decoration: underline;
+        }
+
+        .dashboard {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-right: 2px solid #ccc;
+            height: 100vh;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: #003366;
+        }
+
+        .sidebar button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #005c99;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+
+    <script>
+        function showSection(section) {
+            document.getElementById("frame").src = section;
+        }
+
+        function toggleProfileMenu() {
+            const menu = document.getElementById("profileMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        window.onclick = function(event) {
+            const profileIcon = document.querySelector(".profile-icon");
+            const profileMenu = document.getElementById("profileMenu");
+            if (!profileIcon.contains(event.target)) {
+                profileMenu.style.display = "none";
+            }
+        };
+    </script>
+</head>
+
+<body>
+<div class="header">
+    <h2 style="margin: 0 20px;">Employee Dashboard</h2>
+    <div class="quote">"Leadership is the capacity to translate vision into reality." – Warren Bennis</div>
+    <div class="profile-container">
+        <div class="profile-icon" onclick="toggleProfileMenu()">&#128100;</div>
+        <div id="profileMenu" class="profile-menu">
+            <span th:text="${session.adminName}">Manager</span><br/>
+            <a href="/api/logout">Logout</a>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <h3>Admin Panel</h3>
+        <button onclick="showSection('/api/employee/view/roster')">View Roster</button>
+        <button onclick="showSection('/leave/request')">Apply Leaves</button>
+        
+        <button onclick="showSection('/api/employee/leave-status')">Leave Status</button>
+    </div>
+
+    <div class="main-content">
+        <iframe id="frame" src="" title="Employee Section"></iframe>
+    </div>
+</div>
+</body>
+</html>

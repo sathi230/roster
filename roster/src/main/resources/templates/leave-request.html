@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Request Leave</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007acc;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .success-msg {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Request Leave</h2>
+    <form method="post" th:action="@{/leave/request}" th:object="${leaveRequest}">
+        <label>Employee ID:</label>
+        <input type="text" th:field="*{empId}" required />
+
+        <label>From Date:</label>
+        <input type="date" th:field="*{fromDate}" required />
+
+        <label>To Date:</label>
+        <input type="date" th:field="*{toDate}" required />
+
+        <label>Leave Type:</label>
+        <select th:field="*{leaveType}">
+            <option value="EL">Earned Leave</option>
+            <option value="SL">Sick Leave</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <p class="success-msg" th:if="${param.success}">Leave request submitted successfully.</p>
+</div>
+
+</body>
+</html>

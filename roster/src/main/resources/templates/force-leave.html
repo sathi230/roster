@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Force Leave</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .note span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Force Leave Assignment</h2>
+    <form th:action="@{/api/admin/force-leave}" method="post">
+        <label for="empId">Employee ID</label>
+        <input type="text" name="empId" id="empId" placeholder="Enter employee ID" required />
+
+        <label for="fromDate">From Date</label>
+        <input type="date" name="fromDate" id="fromDate" required />
+
+        <label for="toDate">To Date</label>
+        <input type="date" name="toDate" id="toDate" required />
+
+        <label for="status">Leave Status</label>
+        <select name="status" id="status" required>
+            <option value="">-- Select Status --</option>
+            <option value="PLANNED_LEAVE">Planned Leave</option>
+            <option value="SICK_LEAVE">Sick Leave</option>
+            <option value="LOP">Loss of Pay (LOP)</option>
+            <option value="ATT">Absconded (ATT)</option>
+            <option value="GH">General Holiday (GH)</option>
+        </select>
+
+        <button type="submit">Force Leave</button>
+
+        <div class="note">
+            <p><span>Note:</span> This will override existing roster status for the selected dates.</p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

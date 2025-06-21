@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Full Roster View</title>
+    <style>
+        table, th, td {
+            border: 1px solid #000;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+        .WORKING { color: green; }
+        .WEEK_OFF { color: blue; }
+        .PLANNED_LEAVE { color: orange; }
+        .SICK_LEAVE { color: red; }
+    </style>
+</head>
+<body>
+<h2>Monthly Roster Summary</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Shift</th>
+            <th>Skillset</th>
+            <th th:each="day : ${formattedDays}" th:text="${day}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="emp : ${matrix}">
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.shift}"></td>
+            <td th:text="${emp.skillset}"></td>
+            <td th:each="status : ${emp.dailyStatus.values()}"
+                th:text="${status}"
+                th:class="${status}">
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

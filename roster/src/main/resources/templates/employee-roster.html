@@ -1,0 +1,101 @@
+<!-- src/main/resources/templates/employee-roster.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Roster Lookup</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4a148c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+   <div class="form-container" style="display: flex; gap: 40px; justify-content: center;">
+
+  <!-- Employee Login -->
+  <div>
+    <h2>Employee Login</h2>
+    <form th:action="@{/api/employee-dashboard}" method="get">
+      <label for="empId">Employee ID</label>
+      <input type="text" id="empId" name="empId" placeholder="Enter your Employee ID" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Admin Login -->
+  <div>
+    <h2>Admin Login</h2>
+    <form th:action="@{/api/admin-login}" method="post">
+      <label for="adminUsername">Username</label>
+      <input type="text" id="adminUsername" name="username" placeholder="Enter admin username" required />
+      
+      <label for="adminPassword">Password</label>
+      <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" required />
+      
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>
